@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input,
+        button {
+            margin-bottom: 16px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <title>Registration Form</title>
+</head>
+<body>
+    <div class="container">
+        <form id="registrationForm" onsubmit="submitForm(event)">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="dob">Date of Birth (Age 18-55):</label>
+            <input type="date" id="dob" name="dob" required max="2005-01-01" min="1968-01-01">
+
+            <label for="terms">Accept Terms and Conditions:</label>
+            <input type="checkbox" id="terms" name="terms" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2>Registration Entries</h2>
+        <table id="registrationTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Dob</th>
+                    <th>Accepted terms?</th>
+                </tr>
+            </thead>
+            <tbody id="registrationTableBody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var dob = document.getElementById('dob').value;
+            var terms = document.getElementById('terms').checked;
+
+            if (terms) {
+                var displayEntries = document.getElementById('registrationTableBody');
+                var newRow = displayEntries.insertRow(displayEntries.rows.length);
+
+                newRow.insertCell(0).innerHTML = name;
+                newRow.insertCell(1).innerHTML = email;
+                newRow.insertCell(2).innerHTML = password;
+                newRow.insertCell(3).innerHTML = dob;
+                newRow.insertCell(4).innerHTML = terms ? 'Yes' : 'No';
+
+                // Clear the form after submission
+                document.getElementById('registrationForm').reset();
+            } else {
+                alert('Please accept the terms and conditions.');
+            }
+        }
+    </script>
+</body>
+</html>
